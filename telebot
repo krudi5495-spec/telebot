@@ -1,0 +1,24 @@
+from pyrogram import Client, filters
+import time
+
+# Data API Telegram kamu
+API_ID = 38549081
+API_HASH = "592160a890d307d93946166ccba39705"
+
+# Inisialisasi Userbot
+app = Client("flensiza_userbot", api_id=API_ID, api_hash=API_HASH)
+
+@app.on_message(filters.command("ping", prefixes="."))
+def ping_handler(client, message):
+    message.edit("🤖 Pong! Userbot Flenisiza kamu aktif dan berjalan dengan normal.")
+
+@app.on_message(filters.command("autopost", prefixes=".") & filters.me)
+def auto_post_handler(client, message):
+    target_group = message.chat.id
+    teks = "📢 **PESAN OTOMATIS USERBOT**\n\nPostingan ini dikirim secara otomatis oleh userbot pribadi saya!"
+    client.send_message(target_group, teks)
+    message.reply("✅ Pesan otomatis berhasil dikirim ke grup ini!")
+
+if __name__ == "__main__":
+    print("Memulai Userbot Flenisiza...")
+    app.run()
